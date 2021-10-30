@@ -20,27 +20,27 @@ def temp_c(data):
     if value & 0x1000:
         temp -= 256.0
     return temp
-#Creating the outer infinite loop
+# Creating the outer infinite loop
 while True:
-    #data from the sensor is saved in a buffer array
+    # data from the sensor is saved in a buffer array
     data = bytearray(2)
     sensor.readfrom_mem_into(address, temp_reg, data)
-    #setting a short delay in between readings
-    #this proved necissary to not overload the program with data
+    # setting a short delay in between readings
+    # this proved necissary to not overload the program with data
     time.sleep(0.01)
-    #printing the actual temp readings in celcius to track on screen
+    # printing the actual temp readings in celcius to track on screen
     print(temp_c(data))
-    #if the temperature is under 25 degrees the green light alone is on
+    # if the temperature is under 25 degrees the green light alone is on
     if temp_c(data) < 25:
         ledgreen.value(1)
         ledorange.value(0)
         ledred.value(0)
-    #if the temperature is above 28 degrees the red light alone is on
+    # if the temperature is above 28 degrees the red light alone is on
     elif temp_c(data) > 28:
         ledgreen.value(0)
         ledorange.value(0)
         ledred.value(1)
-    #for anything in between the yellow/orange light alone is on
+    # for anything in between the yellow/orange light alone is on
     else:
         ledgreen.value(0)
         ledorange.value(1)
